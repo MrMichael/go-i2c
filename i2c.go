@@ -201,7 +201,7 @@ func (v *I2C) ReadS16RegS16BE(regH byte, regL byte) ([]byte, error) {
                 return []byte{0x00}, err
         }
 
-        lg.Debugf("Read S16 %x %x from reg 0x%0X%0X", buf[0], buf[1], regH,regL)
+        lg.Debugf("Read S16 %x %x from reg 0x%02x%02x", buf[0], buf[1], regH,regL)
         return buf, nil
 }
 
