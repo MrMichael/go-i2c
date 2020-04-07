@@ -190,6 +190,22 @@ func (v *I2C) ReadRegS16LE(reg byte) (int16, error) {
 
 }
 
+func (v *I2C) ReadS16RegS16BE(regH byte, regL byte) ([]byte, error) {
+        _, err := v.WriteBytes([]byte{regH, regL})
+        if err != nil {
+                return []byte{0x00}, err
+        }
+        buf := make([]byte, 2)
+        _, err = v.ReadBytes(buf)
+        if err != nil {
+                return []byte{0x00}, err
+        }
+
+        lg.Debugf("Read S16 %x %x from reg 0x%0X%0X", buf[0], buf[1], regH,regL)
+        return buf, nil
+}
+
+
 // WriteRegU16BE writes unsigned big endian word (16 bits)
 // value to I2C-device starting from address specified in reg.
 // SMBus (System Management Bus) protocol over I2C.
